@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ABOUT</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="Asset/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="Asset/css/style.css">
+	<link rel="stylesheet" type="text/css" href="Asset/css/responsive.css">
+	<!--<script type="text/javascript" src="includeHTML.js"></script>-->
+	<script>
+		function includeHTML() {
+		  var z, i, elmnt, file, xhttp;
+		  /* Loop through a collection of all HTML elements: */
+		  z = document.getElementsByTagName("*");
+		  for (i = 0; i < z.length; i++) {
+		    elmnt = z[i];
+		    /*search for elements with a certain atrribute:*/
+		    file = elmnt.getAttribute("include-html");
+		    if (file) {
+		      /* Make an HTTP request using the attribute value as the file name: */
+		      xhttp = new XMLHttpRequest();
+		      xhttp.onreadystatechange = function() {
+		        if (this.readyState == 4) {
+		          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+		          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+		          /* Remove the attribute, and call this function once more: */
+		          elmnt.removeAttribute("include-html");
+		          includeHTML();
+		        }
+		      }
+		      xhttp.open("GET", file, true);
+		      xhttp.send();
+		      /* Exit the function: */
+		      return;
+		    }
+		  }
+		}
+	</script>
+</head>
+<body>
+	<div include-html="header.html"></div>
+	<script>
+	includeHTML();
+	</script>
+</body>
+</html>
